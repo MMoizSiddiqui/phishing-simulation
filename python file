@@ -18,48 +18,134 @@ html_content_template = """
 <head>
     <title>Security Alert</title>
     <style>
-        body {{ font-family: Arial, sans-serif; background-color: #ffffff; }}
-        .email-container {{ max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; color: #333333; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }}
-        .email-header {{ text-align: center; margin-bottom: 20px; }}
-        .email-content {{ font-size: 16px; line-height: 1.5; text-align: center; }}
-        .email-buttons {{ text-align: center; }}
-        .email-buttons a {{ display: inline-block; width: 145px; margin: 5px; padding: 10px 0; background-color: #3182CE; color: #ffffff; text-decoration: none; border-radius: 7px; border: 2px solid transparent; transition: border-color 0.3s ease, box-shadow 0.3s ease; }}
-        .email-buttons a.secondary {{ background-color: #fffefe; color: #3182CE; border: 2px solid #3182CE; }}
-        .email-buttons a:hover {{ border-color: #ffffff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }}
-        .email-footer {{ text-align: center; font-size: 14px; color: #A0AEC0; }}
+        body {{
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;  /* Background remains white for the page */
+        }}
+        .email-container {{
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;  /* Changed to white for the middle section */
+            color: #333333;  /* Set text color to dark gray for contrast */
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }}
+        .email-header {{
+            text-align: center;
+            margin-bottom: 20px;
+        }}
+        .email-header img {{
+            height: 30px;
+        }}
+        .email-content {{
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: center;
+        }}
+        .email-content a {{
+            color: #3182CE;  /* Set the link color to blue */
+            text-decoration: none;  /* Remove underlines from links */
+        }}
+        .email-buttons {{
+            text-align: center;
+        }}
+        .email-buttons a {{
+            display: inline-block;
+            width: 145px;
+            margin: 5px;
+            padding: 10px 0;
+            background-color: #3182CE;  /* Set button color to blue */
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 7px;
+            border: 2px solid transparent; /* Add transparent border to buttons */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+        }}
+        .email-buttons a.secondary {{
+            background-color: #fffefe;  /* Secondary button color */
+            color: #3182CE; /* Set text color for secondary button */
+            border: 2px solid #3182CE; /* Add border to secondary button */
+        }}
+        .email-buttons a:hover {{
+            border-color: #ffffff; /* Change border color to white on hover */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+        }}
+        .email-buttons a.secondary:hover {{
+            border-color: #3182CE; /* Keep border color same for secondary button on hover */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+        }}
+        span {{
+            content: "\2609";
+        }}
+        .email-footer {{
+            text-align: center;
+            font-size: 14px;
+            color: #A0AEC0;  /* Lighter color for footer text */
+        }}
+        .footer-buttons {{
+            text-align: center;
+            margin-top: 10px;
+        }}
     </style>
 </head>
 <body>
     <div class="email-container">
+        <!-- Email Header -->
         <div class="email-header">
             <img src="https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_74x24dp.png" alt="Google Logo">
         </div>
+
+        <!-- Email Content -->
         <h1 style="text-align: center; font-size: 22px; margin-bottom: 20px;">A new sign-in on Windows</h1>
-        <p class="email-content">We noticed a new sign-in to your Google Account on a Windows device.</p>
-        <p class="email-content" style="text-align:left;font-size: 14px;">Device: DESKTOP-FEBHC03R <br> Time: {send_time}</p>
+        <p class="email-content">
+            We noticed a new sign-in to your Google Account on a Windows device. If this was you, you don’t need to do anything. If not, we’ll help you secure your account.
+        </p>
+        <p class="email-content" style="text-align:left;font-size: 14px;">
+            Device: DESKTOP-FEBHC03R <br> Time: {send_time}
+        </p>
+
+        <!-- Email Buttons -->
         <h4 style="text-align: left;">Do you recognize this activity?</h4>
         <div class="email-buttons">
-            <a href="https://github.com/MMoizSiddiqui/phishing-simulation/new/main" class="secondary">Yes, it was me</a>
-            <a href="https://github.com/MMoizSiddiqui/phishing-simulation/new/main" class="secondary" style="color:#c43c4a;">No, secure account</a>
+            <a href="https://www.youtube.com/" class="secondary" style="color:#3182CE; border: #faf3f3 solid 1pt;">Yes, it was me</a>
+            <a href="https://www.youtube.com/" class="secondary" style="color:#c43c4a; border: #faf3f3 solid 1pt;">No, secure account</a>
         </div>
-        <p class="email-footer">You can also see security activity at</p>
-        <p class="email-footer"><a href="https://github.com/MMoizSiddiqui/phishing-simulation/new/main" style="color: #3182CE;">https://myaccount.google.com/notifications</a></p>
+
+        <!-- Email Footer -->
+        <p class="email-footer">
+            You can also see security activity at
+        </p>
+        <p class="email-footer">
+            <a href="https://www.youtube.com/" style="color: #3182CE;">https://myaccount.google.com/notifications</a>
+        </p>
     </div>
 </body>
 </html>
+
 """
+
 
 def send_email(receiver_email, sender_email, password):
     send_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    html_content = html_content_template.format(send_time=send_time)
+    device_name = socket.gethostname()
+
+    html_content = html_content_template.format(send_time=send_time, device_name=device_name)
+
     message = MIMEMultipart()
-    message["From"] = formataddr(("Google", "no-reply@google.com"))
+    message["From"] = formataddr(("Google","no-reply@google.com"))
     message["To"] = receiver_email
     message["Subject"] = "Security Alert: New Sign-in Attempt"
     message["List-Unsubscribe"] = "<https://myaccount.google.com/notifications>"
+
+    
     message.attach(MIMEText(html_content, "html"))
+
     try:
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.set_debuglevel(0)  
             server.login(sender_email, password)
             server.send_message(message)
             print(f"Email sent successfully to {receiver_email}")
@@ -78,13 +164,14 @@ while True:
         break
     print("Password cannot be empty. Please try again.")
 
+
 while True:
     receiver_email = input("Enter receiver's email (or 'q' to quit): ")
     if receiver_email.lower() == 'q':
         break
     if is_valid_email(receiver_email):
         send_email(receiver_email, sender_email, password)
-        time.sleep(5)
+        time.sleep(5)  
     else:
         print("Invalid email address. Please try again.")
 
